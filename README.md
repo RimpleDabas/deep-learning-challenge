@@ -18,7 +18,8 @@ To achieve the purpose following steps were followed:
 - The preprocessed data was split into a features array, X, and a target array, y. 
 - These arrays were used to train_test_split function to split the data into training and testing datasets as follows ```X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1,stratify = y)```.
 
-- Scaled the training and testing features datasets by creating a StandardScaler instance, fitting it to the training data, then using the transform function ```scaler = StandardScaler()
+- Scaled the training and testing features datasets by creating a StandardScaler instance, fitting it to the training data, then using the transform function 
+~~~scaler = StandardScaler()
 
 X_scaler = scaler.fit(X_train)
 
@@ -26,7 +27,31 @@ X_train_scaled = X_scaler.transform(X_train)
 
 X_test_scaled = X_scaler.transform(X_test)
 
-print(len(X_train_scaled))```
+print(len(X_train_scaled))
+~~~
 
 ## Compilation,Training and evaluation
-- 
+- Neural network layers were created with different combinations and summary was generated
+ ~~~ nn = tf.keras.models.Sequential()
+
+nn.add(tf.keras.layers.Dense(units = 40, activation = 'tanh', input_dim = input_features))
+
+nn.add(tf.keras.layers.Dense(units = 60, activation = 'sigmoid'))
+
+nn.add(tf.keras.layers.Dense(units = 1, activation = 'sigmoid'))
+
+
+nn.summary()
+~~~
+- Compilation of the model was done 
+
+~~~ 
+nn.compile(loss="binary_crossentropy",optimizer="adam", metrics=["accuracy"])
+ ~~~
+  - Finally model was trained and evaluated and results were saved in ```AlphabetSoupCharity.h5.```
+  ~~~
+  fit_model = nn.fit(X_train_scaled, y_train, epochs= 50, callbacks=[checkpoint])
+  model_loss, model_accuracy = nn.evaluate(X_test_scaled,y_test,verbose=2)
+  ~~~
+
+  ## Results
