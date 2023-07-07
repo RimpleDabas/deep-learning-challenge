@@ -32,26 +32,39 @@ print(len(X_train_scaled))
 
 ## Compilation,Training and evaluation
 - Neural network layers were created with different combinations and summary was generated
- ~~~ nn = tf.keras.models.Sequential()
+- Different layers with different neurons and activation methods were tried. 
+- It was noticed that using more neurons or using different activation methods in each layer did not improve the accuracy as shown in images below: 
 
-nn.add(tf.keras.layers.Dense(units = 40, activation = 'tanh', input_dim = input_features))
+Layers parameters:
 
-nn.add(tf.keras.layers.Dense(units = 60, activation = 'sigmoid'))
+![image](/Images/model%202.png)
 
-nn.add(tf.keras.layers.Dense(units = 1, activation = 'sigmoid'))
+![image](/Images/model%203.png)
+![image](/Images/model.png)
 
+- Corresponding accuracies
 
-nn.summary()
-~~~
+![image](/Images/2nd.png)
+![image](/Images/3rd.png)
+ - Another thing which was noticed is that having more neurons in the second layer gives more accuracy
+ - Adding more hidden layers did not result in any improvement
+ - Considering these factors one input layers, and one hidden layer and output were used with units 20,35 and 1 respectively and activation functions being relu,sigmoid and sigmoid were finalized. 
 - Compilation of the model was done 
 
 ~~~ 
 nn.compile(loss="binary_crossentropy",optimizer="adam", metrics=["accuracy"])
  ~~~
   - Finally model was trained and evaluated and results were saved in ```AlphabetSoupCharity.h5.```
+  - Increasing the number of epoch did not lead to any significant improvement and therefore 50 was chosen.
   ~~~
   fit_model = nn.fit(X_train_scaled, y_train, epochs= 50, callbacks=[checkpoint])
   model_loss, model_accuracy = nn.evaluate(X_test_scaled,y_test,verbose=2)
+  nn.save('/content/drive/MyDrive/AlphabetSoupCharity.h5')
   ~~~
 
-  ## Results
+  ## Summary
+  - In summary, with lots of combinations, hits and trials there was no improvement in the accuray 
+  ![image](/Images/graph.png)
+  - The max it could reach was only 73.5% which is not good enough for using this model and making predictions
+  - Use of another classifiers such as random forest model could lead to better results
+  - Another approach would be creating bins for ask amount columns as well and perform the steps again.
