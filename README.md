@@ -68,3 +68,4 @@ nn.compile(loss="binary_crossentropy",optimizer="adam", metrics=["accuracy"])
   - The max it could reach was only 73.5% which is not good enough for using this model and making predictions
   - Use of another classifiers such as random forest model could lead to better results
   - Another approach would be creating bins for ask amount columns as well and perform the steps again.
+- Exploratory data analysis could also add to the value if we want to improve accuracy using this model.
